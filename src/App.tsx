@@ -12,7 +12,6 @@ export default function App() {
     const [characters, setCharacters] = useState<Character[]>(charactersResponse.results);
 
 
-
     function saveCharacter(characterToSave: Character) {
         setCharacters([...characters, characterToSave])
     }
@@ -23,10 +22,9 @@ export default function App() {
             <Routes>
                 <Route path={"/"} element={<HomePage/>}/>
                 <Route path={"/characters"} element={<CharacterGallery characters={characters}/>}/>
+                <Route path={"/characters/add"} element={<AddCharacter saveCharacter={saveCharacter}/>}/>
                 <Route path={"/characters/:id"} element={<CharacterDetails characters={characters}/>}/>
             </Routes>
-            <AddCharacter saveCharacter={saveCharacter}/>
-            <CharacterGallery  characters={characters}/>
         </>
     );
 }

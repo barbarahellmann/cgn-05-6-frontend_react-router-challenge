@@ -7,6 +7,7 @@ export default function TopNavigation() {
             <ul>
                 <li><Link to={"/"}>Home Page</Link></li>
                 <li><Link to={"/characters"}>Character Gallery</Link></li>
+                <li><Link to={"/characters/add"}>Add Character</Link></li>
             </ul>
         </nav>
     )
