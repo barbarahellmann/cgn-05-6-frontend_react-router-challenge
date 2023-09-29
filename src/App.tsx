@@ -2,6 +2,9 @@ import './App.css'
 import {useState} from "react";
 import {Character, charactersResponse} from "./characters.ts";
 import CharacterGallery from "./CharacterGallery.tsx";
+import HomePage from "./HomePage.tsx";
+import {Route, Routes} from "react-router-dom";
+import TopNavigation from "./TopNavigation.tsx";
 
 function App() {
 
@@ -9,7 +12,11 @@ function App() {
 
     return (
         <>
-            <CharacterGallery  characters={characters}/>
+            <TopNavigation/>
+            <Routes>
+                <Route path={"/"} element={<HomePage/>}/>
+                <Route path={"/characters"} element={<CharacterGallery characters={characters}/>}/>
+            </Routes>
         </>
     )
 }
