@@ -3,7 +3,7 @@ import CharacterCard from "./CharacterCard.tsx";
 
 type CharacterGalleryProps = {
     characters: Character[],
-    onCharacterClick: (character: Character) => void
+
 }
 
 export default function CharacterGallery(props: CharacterGalleryProps) {
@@ -13,7 +13,7 @@ export default function CharacterGallery(props: CharacterGalleryProps) {
             <p>
                 Gallery
             </p>
-            {props.characters.map(character => <CharacterCard  key={character.id} character={character} onCharacterClick={props.onCharacterClick}/>)}
+            {props.characters.map(character => <CharacterCard key={character.id} character={character}/>)}
         </div>
     )
 }

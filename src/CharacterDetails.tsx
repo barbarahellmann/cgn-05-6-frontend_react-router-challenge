@@ -1,21 +1,32 @@
 import React from "react";
 import {Character} from "./characters.ts";
+import {useParams} from "react-router-dom";
 
 
 type CharacterDetailsProps = {
-    character: Character | undefined;
+    characters: Character[];
 
 };
 
 export default function CharacterDetails(props: CharacterDetailsProps) {
 
 
+    const urlParams = useParams()
+    const currentCharacter = props.characters.find((character) => character.id.toString() === urlParams.id)
+
     return (
         <div className={"character-card"}>
-            <h2>Character Details</h2>
-            <p>Name: {props.character?.name}</p>
-            <p>{props.character?.species}</p>
-            <p>{props.character?.status}</p>
+            {currentCharacter
+                ? <>
+                    <h2>Character Details</h2>
+                    <p>Name: {currentCharacter.name}</p>
+                    <p>{currentCharacter.species}</p>
+                    <p>{currentCharacter.status}</p>
+                </>
+                : <>
+                    <p>Character not found</p>
+                </>
+            }
         </div>
     );
 }

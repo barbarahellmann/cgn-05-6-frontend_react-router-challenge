@@ -9,7 +9,7 @@ import CharacterDetails from "./CharacterDetails.tsx";
 
 export default function App() {
     const [characters, setCharacters] = useState<Character[]>(charactersResponse.results);
-    const [selectedCharacter, setSelectedCharacter] = useState<Character>()
+
 
 
     return (
@@ -17,8 +17,8 @@ export default function App() {
             <TopNavigation/>
             <Routes>
                 <Route path={"/"} element={<HomePage/>}/>
-                <Route path={"/characters"} element={<CharacterGallery characters={characters} onCharacterClick={setSelectedCharacter}/>}/>
-                <Route path={"/characters/:id"} element={<CharacterDetails character={selectedCharacter}/>}/>
+                <Route path={"/characters"} element={<CharacterGallery characters={characters}/>}/>
+                <Route path={"/characters/:id"} element={<CharacterDetails characters={characters}/>}/>
             </Routes>
         </>
     );

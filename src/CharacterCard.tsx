@@ -1,23 +1,20 @@
 import {Character} from "./characters.ts";
 import {Link} from "react-router-dom";
-import CharacterDetails from "./CharacterDetails.tsx";
 
 type CharacterCardProps = {
     character: Character,
-    onCharacterClick: (character: Character) => void
+
 
 }
 
 export default function CharacterCard(props: CharacterCardProps) {
 
-    function handleCardClick() {
-        props.onCharacterClick(props.character)
-    }
 
     return (
-        <div onClick={handleCardClick}>
+        <div className={"character-card"}>
             <Link to={`/characters/${props.character.id}`}>
-                <CharacterDetails character={props.character}/>
+                <h3>{props.character.name}</h3>
+                <p>{props.character.status}</p>
             </Link>
         </div>
     )
