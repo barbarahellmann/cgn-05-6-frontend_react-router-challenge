@@ -7,32 +7,24 @@ type AddCharacterProps = {
 
 export default function AddCharacter(props: AddCharacterProps) {
 
-    const [name, setName] = useState<string>("")
-    const [status, setStatus] = useState<string>("")
+    const [newCharacter, setNewCharacter] = useState<Character>({name: "", status: ""})
 
-    function onNameChange(event: ChangeEvent<HTMLInputElement>) {
-        setName(event.target.value)
-    }
-
-    function onStatusChange(event: ChangeEvent<HTMLInputElement>) {
-        setStatus(event.target.value)
+    function onInputChange(event: ChangeEvent<HTMLInputElement>) {
+        setNewCharacter({...newCharacter, [event.target.name]: event.target.value})
     }
 
     function onCharacterSave(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
-        const newCharacter: Character = {
-            name: name,
-            status: status
-        }
-
         props.saveCharacter(newCharacter)
+
+        setNewCharacter({name: "", status: ""})
     }
 
     return (
         <form onSubmit={onCharacterSave}>
-            <input placeholder="Name" required value={name} onChange={onNameChange}/>
-            <input value={status} onChange={onStatusChange}/>
+            <input name="name" placeholder="Name" required value={newCharacter.name} onChange={onInputChange}/>
+            <input name="status" placeholder="Status" value={newCharacter.status} onChange={onInputChange}/>
             <button>Save</button>
         </form>
     )
