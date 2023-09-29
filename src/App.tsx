@@ -6,11 +6,16 @@ import CharacterGallery from "./CharacterGallery.tsx";
 import {Character, charactersResponse} from "./characters.ts";
 import CharacterDetails from "./CharacterDetails.tsx";
 
+import AddCharacter from "./AddCharacter.tsx";
 
 export default function App() {
     const [characters, setCharacters] = useState<Character[]>(charactersResponse.results);
 
 
+
+    function saveCharacter(characterToSave: Character) {
+        setCharacters([...characters, characterToSave])
+    }
 
     return (
         <>
@@ -20,6 +25,8 @@ export default function App() {
                 <Route path={"/characters"} element={<CharacterGallery characters={characters}/>}/>
                 <Route path={"/characters/:id"} element={<CharacterDetails characters={characters}/>}/>
             </Routes>
+            <AddCharacter saveCharacter={saveCharacter}/>
+            <CharacterGallery  characters={characters}/>
         </>
     );
 }
