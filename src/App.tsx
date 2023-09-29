@@ -1,24 +1,25 @@
-import './App.css'
 import {useState} from "react";
-import {Character, charactersResponse} from "./characters.ts";
-import CharacterGallery from "./CharacterGallery.tsx";
-import HomePage from "./HomePage.tsx";
-import {Route, Routes} from "react-router-dom";
 import TopNavigation from "./TopNavigation.tsx";
+import {Route, Routes} from "react-router-dom";
+import HomePage from "./HomePage.tsx";
+import CharacterGallery from "./CharacterGallery.tsx";
+import {Character, charactersResponse} from "./characters.ts";
+import CharacterDetails from "./CharacterDetails.tsx";
 
-function App() {
 
-    const [characters, setCharacters] = useState<Character[]>(charactersResponse.results)
+export default function App() {
+    const [characters, setCharacters] = useState<Character[]>(charactersResponse.results);
+    const [selectedCharacter, setSelectedCharacter] = useState<Character>()
+
 
     return (
         <>
             <TopNavigation/>
             <Routes>
                 <Route path={"/"} element={<HomePage/>}/>
-                <Route path={"/characters"} element={<CharacterGallery characters={characters}/>}/>
+                <Route path={"/characters"} element={<CharacterGallery characters={characters} onCharacterClick={setSelectedCharacter}/>}/>
+                <Route path={"/characters/:id"} element={<CharacterDetails character={selectedCharacter}/>}/>
             </Routes>
         </>
-    )
+    );
 }
-
-export default App
