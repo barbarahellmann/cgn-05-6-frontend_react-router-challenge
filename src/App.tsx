@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import TopNavigation from "./TopNavigation.tsx";
 import {Route, Routes} from "react-router-dom";
 import HomePage from "./HomePage.tsx";
@@ -8,32 +8,34 @@ import CharacterDetails from "./CharacterDetails.tsx";
 
 import AddCharacter from "./AddCharacter.tsx";
 import axios from "axios";
+import ActionBar from "./ActionBar.tsx";
 
 export default function App() {
     const [characters, setCharacters] = useState<Character[]>([]);
+    const [nextUrl, setNextUrl] = useState<string | undefined>()
+    const [prevUrl, setPrevUrl] = useState<string | undefined>()
+
 
     useEffect(() => {
-        console.log("useEffect")
-        loadCharacters()
+        loadCharacters("https://rickandmortyapi.com/api/character")
     }, [])
 
-    function loadCharacters() {
-        axios.get("https://rickandmortyapi.com/api/character")
-            .then((response) => {
-                console.log("then 1")
-
-                return response.data.results
-            })
-            .then((results) => {
-                console.log("then 2")
-                setCharacters(results)
-            })
-            .catch((reason) => {
-                console.error("fehler")
-            })
-            .finally(() => {
-                console.log("fertig")
-            })
+    function loadCharacters(url?: string) {
+        if (url) {
+            axios.get(url)
+                .then((response) => {
+                    console.log("then 1")
+                    setNextUrl(response.data.info.next)
+                    setPrevUrl(response.data.info.prev)
+                    setCharacters(response.data.results)
+                })
+                .catch((reason) => {
+                    console.error("fehler")
+                })
+                .finally(() => {
+                    console.log("fertig")
+                })
+        }
     }
 
     function saveCharacter(characterToSave: Character) {
@@ -43,6 +45,10 @@ export default function App() {
     return (
         <>
             <TopNavigation/>
+            <ActionBar hasNext={!!nextUrl}
+                       hasPrev={!!prevUrl}
+                       loadNext={() => loadCharacters(nextUrl)}
+                       loadPrev={() => loadCharacters(prevUrl)}/>
             <Routes>
                 <Route path={"/"} element={<HomePage/>}/>
                 <Route path={"/characters"} element={<CharacterGallery characters={characters}/>}/>
