@@ -10,6 +10,7 @@ import Characters from "./pages/characters.tsx";
 function App() {
 
     const [characters, setCharacters] = useState<Character[]>(charactersResponse.results)
+
     return (
         <>
             <Navigation />
